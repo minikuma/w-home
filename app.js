@@ -42,7 +42,7 @@ const upload = multer({
 });
 
 // 업로드 라우터
-router.post('/upload', upload.array('print', 1), function (req, res, next) {
+router.post('/', upload.array('print', 1), function (req, res, next) {
     try {
         const files = req.files;
         let originalName = '';
@@ -74,6 +74,7 @@ router.post('/upload', upload.array('print', 1), function (req, res, next) {
         res.write(`<p>original name = ${originalName}, saved name = ${fileName}</p>`);
         res.write(`<p>mime type = ${mimeType}</p>`);
         res.write(`<p>size = ${size}</p>`);
+        res.write('<a href="/">처음으로...</a>');
         res.end();
     } catch (error) {
         console.dir(error.stack);
@@ -106,6 +107,8 @@ router.get('/', function (req, res, next) {
                         </head>
                         <body>
                             <h1><a href="/">WEB</a></h1>
+                            <br>
+                            <h1><a href="/upload.html">Print</a></h1>
                             ${list}
                             <h2>${title}</h2>
                             <p>${description}</p>
@@ -132,11 +135,8 @@ router.get('/', function (req, res, next) {
             // 다운로드
             const uploadFolder = './uploads/';
             const file = uploadFolder + req.query.id;
-            const filename = path.basename(file);
-            res.setHeader('Content-disposition', 'attachment: filename=' + filename);
-            res.setHeader('Content-type', "application/octet-stream");
-            const filestream = fs.createReadStream(file);
-            filestream.pipe(res);
+            console.log('file: ' + file);
+            res.download(file);
         });
     }
 });
