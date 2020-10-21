@@ -85,8 +85,8 @@ router.get('/', function (req, res, next) {
 
     if (req.query.id == undefined) {
         fs.readdir('./uploads', function (err, filelist) {
-            let title = 'Welcome! Print World!';
-            let description = 'Hello, Print';
+            // let title = 'Welcome! Print World!';
+            // let description = 'Hello, Print';
             let list = '<ul>';
             let i = 0
             while (i < filelist.length) {
@@ -99,16 +99,41 @@ router.get('/', function (req, res, next) {
                     <!doctype html>
                     <html>
                         <head>
-                            <title>WEB1 - ${title}</title>
+                            <title>Print</title>
                             <meta charset="UTF-8">
+                            <style>
+                                #uploadTable { width: 500px; border-collapse: collapse; }
+                                #uploadTable th,
+                                #uploadTable td { padding: 5px 12px; text-align: center; border: 1px solid #ccc; }
+                                #uploadTable th { background: #eee; }
+                                #uploadTable .btn_delete { padding: 5px 10px; background: #fbdb65; border: none; cursor: pointer; }
+                            </style>
                         </head>
                         <body>
-                            <h1><a href="/">WEB</a></h1>
+                            <img src="home.png" alt="이미지 없음">
+                            <h1><a href="/">Home</a></h1>
                             <br>
-                            <h1><a href="/upload.html">Print</a></h1>
-                            ${list}
-                            <h2>${title}</h2>
-                            <p>${description}</p>
+                            <hr>
+                            <h3><a href="/upload.html">UPLOAD</a></h3>
+                            
+                            <table id="uploadTable">
+                            <colgroup>
+                                <col style="width: 70%">
+                                <col style="width: 30%">
+                            </colgroup>
+                            <thead>
+                                <tr>
+                                    <th>Contents</th>
+                                    <th>Delete</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>${list}</td>
+                                    <td><button type="button" class="btn_delete">Delete</button></td>
+                                </tr>
+                            </tbody>
+                            </table>
                         </body>
                     </html>
                 `;
@@ -119,8 +144,8 @@ router.get('/', function (req, res, next) {
     } else {
         console.log('downloading....');
         fs.readdir('./uploads', function (err, filelist) {
-            let title = 'Welcome! Print World!';
-            let description = 'Hello, Print';
+            // let title = 'Welcome! Print World!';
+            // let description = 'Hello, Print';
             let list = '<ul>';
             let i = 0
             while (i < filelist.length) {
